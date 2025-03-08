@@ -42,10 +42,16 @@
             this.txtNombreProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioProducto = new System.Windows.Forms.TextBox();
             this.txtStockProducto = new System.Windows.Forms.TextBox();
-            this.cbCategriaProducto = new System.Windows.Forms.ComboBox();
+            this.cbCategoriaProducto = new System.Windows.Forms.ComboBox();
             this.btnAgregarProducto = new System.Windows.Forms.Button();
             this.btnMostrarStock = new System.Windows.Forms.Button();
             this.dgvProductos = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CantidadStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnEliminarProducto = new System.Windows.Forms.Button();
             this.tabControlInventario.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
@@ -60,12 +66,16 @@
             this.tabControlInventario.Location = new System.Drawing.Point(37, 12);
             this.tabControlInventario.Name = "tabControlInventario";
             this.tabControlInventario.SelectedIndex = 0;
-            this.tabControlInventario.Size = new System.Drawing.Size(511, 306);
+            this.tabControlInventario.Size = new System.Drawing.Size(751, 475);
             this.tabControlInventario.TabIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.cbCategriaProducto);
+            this.tabPage1.Controls.Add(this.btnEliminarProducto);
+            this.tabPage1.Controls.Add(this.btnAgregarProducto);
+            this.tabPage1.Controls.Add(this.btnMostrarStock);
+            this.tabPage1.Controls.Add(this.dgvProductos);
+            this.tabPage1.Controls.Add(this.cbCategoriaProducto);
             this.tabPage1.Controls.Add(this.txtStockProducto);
             this.tabPage1.Controls.Add(this.txtPrecioProducto);
             this.tabPage1.Controls.Add(this.txtNombreProducto);
@@ -78,7 +88,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(503, 277);
+            this.tabPage1.Size = new System.Drawing.Size(743, 446);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Productos";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -126,7 +136,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(681, 294);
+            this.tabPage2.Size = new System.Drawing.Size(743, 446);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Clientes";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -136,7 +146,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(681, 294);
+            this.tabPage3.Size = new System.Drawing.Size(743, 446);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Ventas";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -146,7 +156,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(681, 294);
+            this.tabPage4.Size = new System.Drawing.Size(743, 446);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Estadisticas";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -189,55 +199,108 @@
             this.txtStockProducto.Size = new System.Drawing.Size(377, 22);
             this.txtStockProducto.TabIndex = 9;
             // 
-            // cbCategriaProducto
+            // cbCategoriaProducto
             // 
-            this.cbCategriaProducto.FormattingEnabled = true;
-            this.cbCategriaProducto.Items.AddRange(new object[] {
+            this.cbCategoriaProducto.FormattingEnabled = true;
+            this.cbCategoriaProducto.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4"});
-            this.cbCategriaProducto.Location = new System.Drawing.Point(103, 128);
-            this.cbCategriaProducto.Name = "cbCategriaProducto";
-            this.cbCategriaProducto.Size = new System.Drawing.Size(377, 24);
-            this.cbCategriaProducto.TabIndex = 10;
+            this.cbCategoriaProducto.Location = new System.Drawing.Point(103, 128);
+            this.cbCategoriaProducto.Name = "cbCategoriaProducto";
+            this.cbCategoriaProducto.Size = new System.Drawing.Size(377, 24);
+            this.cbCategoriaProducto.TabIndex = 10;
             // 
             // btnAgregarProducto
             // 
-            this.btnAgregarProducto.Location = new System.Drawing.Point(611, 75);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(555, 41);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(135, 23);
             this.btnAgregarProducto.TabIndex = 1;
             this.btnAgregarProducto.Text = "Agregar Producto";
             this.btnAgregarProducto.UseVisualStyleBackColor = true;
+            this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
             // btnMostrarStock
             // 
-            this.btnMostrarStock.Location = new System.Drawing.Point(611, 138);
+            this.btnMostrarStock.Location = new System.Drawing.Point(555, 183);
             this.btnMostrarStock.Name = "btnMostrarStock";
             this.btnMostrarStock.Size = new System.Drawing.Size(135, 23);
             this.btnMostrarStock.TabIndex = 2;
             this.btnMostrarStock.Text = "Mostrar Stock";
             this.btnMostrarStock.UseVisualStyleBackColor = true;
+            this.btnMostrarStock.Click += new System.EventHandler(this.btnMostrarStock_Click);
             // 
             // dgvProductos
             // 
             this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductos.Location = new System.Drawing.Point(37, 324);
+            this.dgvProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Nombre,
+            this.Categoria,
+            this.Precio,
+            this.CantidadStock});
+            this.dgvProductos.Location = new System.Drawing.Point(6, 278);
             this.dgvProductos.Name = "dgvProductos";
             this.dgvProductos.RowHeadersWidth = 51;
             this.dgvProductos.RowTemplate.Height = 24;
-            this.dgvProductos.Size = new System.Drawing.Size(511, 150);
+            this.dgvProductos.Size = new System.Drawing.Size(719, 150);
             this.dgvProductos.TabIndex = 3;
+            this.dgvProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellContentClick);
+            // 
+            // ID
+            // 
+            this.ID.FillWeight = 50F;
+            this.ID.HeaderText = "ID";
+            this.ID.MaxInputLength = 25000;
+            this.ID.MinimumWidth = 6;
+            this.ID.Name = "ID";
+            this.ID.Width = 125;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.MinimumWidth = 6;
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 125;
+            // 
+            // Categoria
+            // 
+            this.Categoria.HeaderText = "Categoria";
+            this.Categoria.MinimumWidth = 6;
+            this.Categoria.Name = "Categoria";
+            this.Categoria.Width = 125;
+            // 
+            // Precio
+            // 
+            this.Precio.HeaderText = "Precio";
+            this.Precio.MinimumWidth = 6;
+            this.Precio.Name = "Precio";
+            this.Precio.Width = 125;
+            // 
+            // CantidadStock
+            // 
+            this.CantidadStock.HeaderText = "Stock";
+            this.CantidadStock.MinimumWidth = 6;
+            this.CantidadStock.Name = "CantidadStock";
+            this.CantidadStock.Width = 125;
+            // 
+            // btnEliminarProducto
+            // 
+            this.btnEliminarProducto.Location = new System.Drawing.Point(555, 112);
+            this.btnEliminarProducto.Name = "btnEliminarProducto";
+            this.btnEliminarProducto.Size = new System.Drawing.Size(135, 23);
+            this.btnEliminarProducto.TabIndex = 11;
+            this.btnEliminarProducto.Text = "Eliminar Producto";
+            this.btnEliminarProducto.UseVisualStyleBackColor = true;
+            this.btnEliminarProducto.Click += new System.EventHandler(this.btnEliminarProducto_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 477);
-            this.Controls.Add(this.dgvProductos);
-            this.Controls.Add(this.btnMostrarStock);
-            this.Controls.Add(this.btnAgregarProducto);
             this.Controls.Add(this.tabControlInventario);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -265,10 +328,16 @@
         private System.Windows.Forms.TextBox txtPrecioProducto;
         private System.Windows.Forms.TextBox txtNombreProducto;
         private System.Windows.Forms.TextBox txtIDProducto;
-        private System.Windows.Forms.ComboBox cbCategriaProducto;
+        private System.Windows.Forms.ComboBox cbCategoriaProducto;
         private System.Windows.Forms.Button btnAgregarProducto;
         private System.Windows.Forms.Button btnMostrarStock;
         private System.Windows.Forms.DataGridView dgvProductos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CantidadStock;
+        private System.Windows.Forms.Button btnEliminarProducto;
     }
 }
 
