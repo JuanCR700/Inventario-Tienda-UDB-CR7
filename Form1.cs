@@ -230,5 +230,40 @@ namespace Inventario_Machote
             public double Precio { get; set; }
             public int CantidadStock { get; set; }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblNombreCliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void IDCliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtIDCliente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
