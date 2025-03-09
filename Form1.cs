@@ -511,5 +511,75 @@ namespace Inventario_Machote
         {
 
         }
+
+        private void cbClientesVentas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblProductosVentas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbProductosVentas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCantidadVentas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCantidadVenta_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAgregarProductoVenta_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRegistrarVenta_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMostarVentas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblIDVenta_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtIDVenta_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEliminarVenta_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void lblTotalVenta_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTotalVenta_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
