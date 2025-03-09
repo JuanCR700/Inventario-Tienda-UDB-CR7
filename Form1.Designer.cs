@@ -70,11 +70,32 @@
             this.btnEliminarProducto = new System.Windows.Forms.Button();
             this.btnBuscarProducto = new System.Windows.Forms.Button();
             this.tabControlInventario = new System.Windows.Forms.TabControl();
+            this.cbClientesVentas = new System.Windows.Forms.ComboBox();
+            this.lblClienteVenta = new System.Windows.Forms.Label();
+            this.lblProductosVentas = new System.Windows.Forms.Label();
+            this.cbProductosVentas = new System.Windows.Forms.ComboBox();
+            this.txtCantidadVenta = new System.Windows.Forms.TextBox();
+            this.lblCantidadVentas = new System.Windows.Forms.Label();
+            this.btnRegistrarVenta = new System.Windows.Forms.Button();
+            this.dgvVentas = new System.Windows.Forms.DataGridView();
+            this.txtIDVenta = new System.Windows.Forms.TextBox();
+            this.lblIDVenta = new System.Windows.Forms.Label();
+            this.btnEliminarVenta = new System.Windows.Forms.Button();
+            this.btnMostarVentas = new System.Windows.Forms.Button();
+            this.btnAgregarProductoVenta = new System.Windows.Forms.Button();
+            this.IDVentas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClienteVentas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductosVentas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioProductoVentas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblTotalVenta = new System.Windows.Forms.Label();
+            this.txtTotalVenta = new System.Windows.Forms.TextBox();
+            this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.tabControlInventario.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage4
@@ -89,6 +110,21 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.txtTotalVenta);
+            this.tabPage3.Controls.Add(this.lblTotalVenta);
+            this.tabPage3.Controls.Add(this.btnAgregarProductoVenta);
+            this.tabPage3.Controls.Add(this.btnMostarVentas);
+            this.tabPage3.Controls.Add(this.btnEliminarVenta);
+            this.tabPage3.Controls.Add(this.lblIDVenta);
+            this.tabPage3.Controls.Add(this.txtIDVenta);
+            this.tabPage3.Controls.Add(this.dgvVentas);
+            this.tabPage3.Controls.Add(this.btnRegistrarVenta);
+            this.tabPage3.Controls.Add(this.lblCantidadVentas);
+            this.tabPage3.Controls.Add(this.txtCantidadVenta);
+            this.tabPage3.Controls.Add(this.cbProductosVentas);
+            this.tabPage3.Controls.Add(this.lblProductosVentas);
+            this.tabPage3.Controls.Add(this.lblClienteVenta);
+            this.tabPage3.Controls.Add(this.cbClientesVentas);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -96,6 +132,7 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Ventas";
             this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // tabPage2
             // 
@@ -119,6 +156,7 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Clientes";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // IDCliente
             // 
@@ -197,7 +235,7 @@
             // 
             this.btnMostrarClientes.Location = new System.Drawing.Point(527, 131);
             this.btnMostrarClientes.Name = "btnMostrarClientes";
-            this.btnMostrarClientes.Size = new System.Drawing.Size(135, 30);
+            this.btnMostrarClientes.Size = new System.Drawing.Size(135, 36);
             this.btnMostrarClientes.TabIndex = 16;
             this.btnMostrarClientes.Text = "Mostrar Clientes";
             this.btnMostrarClientes.UseMnemonic = false;
@@ -208,7 +246,7 @@
             // 
             this.btnEliminarCliente.Location = new System.Drawing.Point(527, 77);
             this.btnEliminarCliente.Name = "btnEliminarCliente";
-            this.btnEliminarCliente.Size = new System.Drawing.Size(135, 37);
+            this.btnEliminarCliente.Size = new System.Drawing.Size(135, 40);
             this.btnEliminarCliente.TabIndex = 26;
             this.btnEliminarCliente.Text = "Eliminar Cliente";
             this.btnEliminarCliente.UseVisualStyleBackColor = true;
@@ -216,9 +254,9 @@
             // 
             // btnBuscarCliente
             // 
-            this.btnBuscarCliente.Location = new System.Drawing.Point(527, 179);
+            this.btnBuscarCliente.Location = new System.Drawing.Point(527, 182);
             this.btnBuscarCliente.Name = "btnBuscarCliente";
-            this.btnBuscarCliente.Size = new System.Drawing.Size(135, 32);
+            this.btnBuscarCliente.Size = new System.Drawing.Size(135, 35);
             this.btnBuscarCliente.TabIndex = 27;
             this.btnBuscarCliente.Text = "Buscar Cliente";
             this.btnBuscarCliente.UseVisualStyleBackColor = true;
@@ -228,7 +266,7 @@
             // 
             this.btnAgregarCliente.Location = new System.Drawing.Point(527, 19);
             this.btnAgregarCliente.Name = "btnAgregarCliente";
-            this.btnAgregarCliente.Size = new System.Drawing.Size(135, 37);
+            this.btnAgregarCliente.Size = new System.Drawing.Size(135, 40);
             this.btnAgregarCliente.TabIndex = 28;
             this.btnAgregarCliente.Text = "Agregar Cliente";
             this.btnAgregarCliente.UseVisualStyleBackColor = true;
@@ -460,7 +498,7 @@
             // 
             this.btnMostrarStock.Location = new System.Drawing.Point(527, 132);
             this.btnMostrarStock.Name = "btnMostrarStock";
-            this.btnMostrarStock.Size = new System.Drawing.Size(135, 33);
+            this.btnMostrarStock.Size = new System.Drawing.Size(135, 39);
             this.btnMostrarStock.TabIndex = 2;
             this.btnMostrarStock.Text = "Mostrar Stock";
             this.btnMostrarStock.UseVisualStyleBackColor = true;
@@ -488,9 +526,9 @@
             // 
             // btnBuscarProducto
             // 
-            this.btnBuscarProducto.Location = new System.Drawing.Point(527, 180);
+            this.btnBuscarProducto.Location = new System.Drawing.Point(527, 188);
             this.btnBuscarProducto.Name = "btnBuscarProducto";
-            this.btnBuscarProducto.Size = new System.Drawing.Size(135, 35);
+            this.btnBuscarProducto.Size = new System.Drawing.Size(135, 39);
             this.btnBuscarProducto.TabIndex = 12;
             this.btnBuscarProducto.Text = "Buscar Producto";
             this.btnBuscarProducto.UseVisualStyleBackColor = true;
@@ -508,6 +546,169 @@
             this.tabControlInventario.Size = new System.Drawing.Size(751, 475);
             this.tabControlInventario.TabIndex = 0;
             // 
+            // cbClientesVentas
+            // 
+            this.cbClientesVentas.FormattingEnabled = true;
+            this.cbClientesVentas.Location = new System.Drawing.Point(114, 48);
+            this.cbClientesVentas.Name = "cbClientesVentas";
+            this.cbClientesVentas.Size = new System.Drawing.Size(230, 24);
+            this.cbClientesVentas.TabIndex = 0;
+            // 
+            // lblClienteVenta
+            // 
+            this.lblClienteVenta.AutoSize = true;
+            this.lblClienteVenta.Location = new System.Drawing.Point(27, 56);
+            this.lblClienteVenta.Name = "lblClienteVenta";
+            this.lblClienteVenta.Size = new System.Drawing.Size(48, 16);
+            this.lblClienteVenta.TabIndex = 1;
+            this.lblClienteVenta.Text = "Cliente";
+            this.lblClienteVenta.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // lblProductosVentas
+            // 
+            this.lblProductosVentas.AutoSize = true;
+            this.lblProductosVentas.Location = new System.Drawing.Point(27, 103);
+            this.lblProductosVentas.Name = "lblProductosVentas";
+            this.lblProductosVentas.Size = new System.Drawing.Size(68, 16);
+            this.lblProductosVentas.TabIndex = 2;
+            this.lblProductosVentas.Text = "Productos";
+            // 
+            // cbProductosVentas
+            // 
+            this.cbProductosVentas.FormattingEnabled = true;
+            this.cbProductosVentas.Location = new System.Drawing.Point(114, 95);
+            this.cbProductosVentas.Name = "cbProductosVentas";
+            this.cbProductosVentas.Size = new System.Drawing.Size(230, 24);
+            this.cbProductosVentas.TabIndex = 3;
+            // 
+            // txtCantidadVenta
+            // 
+            this.txtCantidadVenta.Location = new System.Drawing.Point(114, 144);
+            this.txtCantidadVenta.Name = "txtCantidadVenta";
+            this.txtCantidadVenta.Size = new System.Drawing.Size(100, 22);
+            this.txtCantidadVenta.TabIndex = 4;
+            // 
+            // lblCantidadVentas
+            // 
+            this.lblCantidadVentas.AutoSize = true;
+            this.lblCantidadVentas.Location = new System.Drawing.Point(27, 150);
+            this.lblCantidadVentas.Name = "lblCantidadVentas";
+            this.lblCantidadVentas.Size = new System.Drawing.Size(61, 16);
+            this.lblCantidadVentas.TabIndex = 5;
+            this.lblCantidadVentas.Text = "Cantidad";
+            // 
+            // btnRegistrarVenta
+            // 
+            this.btnRegistrarVenta.Location = new System.Drawing.Point(495, 40);
+            this.btnRegistrarVenta.Name = "btnRegistrarVenta";
+            this.btnRegistrarVenta.Size = new System.Drawing.Size(149, 32);
+            this.btnRegistrarVenta.TabIndex = 6;
+            this.btnRegistrarVenta.Text = "Registrar Venta";
+            this.btnRegistrarVenta.UseVisualStyleBackColor = true;
+            // 
+            // dgvVentas
+            // 
+            this.dgvVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IDVentas,
+            this.ClienteVentas,
+            this.ProductosVentas,
+            this.PrecioProductoVentas});
+            this.dgvVentas.Location = new System.Drawing.Point(0, 277);
+            this.dgvVentas.Name = "dgvVentas";
+            this.dgvVentas.RowHeadersWidth = 51;
+            this.dgvVentas.RowTemplate.Height = 24;
+            this.dgvVentas.Size = new System.Drawing.Size(550, 166);
+            this.dgvVentas.TabIndex = 7;
+            // 
+            // txtIDVenta
+            // 
+            this.txtIDVenta.Location = new System.Drawing.Point(567, 159);
+            this.txtIDVenta.Name = "txtIDVenta";
+            this.txtIDVenta.ReadOnly = true;
+            this.txtIDVenta.Size = new System.Drawing.Size(100, 22);
+            this.txtIDVenta.TabIndex = 8;
+            // 
+            // lblIDVenta
+            // 
+            this.lblIDVenta.AutoSize = true;
+            this.lblIDVenta.Location = new System.Drawing.Point(492, 165);
+            this.lblIDVenta.Name = "lblIDVenta";
+            this.lblIDVenta.Size = new System.Drawing.Size(58, 16);
+            this.lblIDVenta.TabIndex = 9;
+            this.lblIDVenta.Text = "ID Venta";
+            // 
+            // btnEliminarVenta
+            // 
+            this.btnEliminarVenta.Location = new System.Drawing.Point(495, 213);
+            this.btnEliminarVenta.Name = "btnEliminarVenta";
+            this.btnEliminarVenta.Size = new System.Drawing.Size(149, 32);
+            this.btnEliminarVenta.TabIndex = 10;
+            this.btnEliminarVenta.Text = "Eliminar Venta";
+            this.btnEliminarVenta.UseVisualStyleBackColor = true;
+            // 
+            // btnMostarVentas
+            // 
+            this.btnMostarVentas.Location = new System.Drawing.Point(495, 103);
+            this.btnMostarVentas.Name = "btnMostarVentas";
+            this.btnMostarVentas.Size = new System.Drawing.Size(149, 32);
+            this.btnMostarVentas.TabIndex = 11;
+            this.btnMostarVentas.Text = "Mostrar Ventas";
+            this.btnMostarVentas.UseVisualStyleBackColor = true;
+            // 
+            // btnAgregarProductoVenta
+            // 
+            this.btnAgregarProductoVenta.Location = new System.Drawing.Point(114, 211);
+            this.btnAgregarProductoVenta.Name = "btnAgregarProductoVenta";
+            this.btnAgregarProductoVenta.Size = new System.Drawing.Size(139, 34);
+            this.btnAgregarProductoVenta.TabIndex = 12;
+            this.btnAgregarProductoVenta.Text = "Agregar Producto";
+            this.btnAgregarProductoVenta.UseVisualStyleBackColor = true;
+            // 
+            // IDVentas
+            // 
+            this.IDVentas.HeaderText = "ID";
+            this.IDVentas.MinimumWidth = 6;
+            this.IDVentas.Name = "IDVentas";
+            this.IDVentas.Width = 125;
+            // 
+            // ClienteVentas
+            // 
+            this.ClienteVentas.HeaderText = "Cliente";
+            this.ClienteVentas.MinimumWidth = 6;
+            this.ClienteVentas.Name = "ClienteVentas";
+            this.ClienteVentas.Width = 125;
+            // 
+            // ProductosVentas
+            // 
+            this.ProductosVentas.HeaderText = "Productos";
+            this.ProductosVentas.MinimumWidth = 6;
+            this.ProductosVentas.Name = "ProductosVentas";
+            this.ProductosVentas.Width = 125;
+            // 
+            // PrecioProductoVentas
+            // 
+            this.PrecioProductoVentas.HeaderText = "Precio";
+            this.PrecioProductoVentas.MinimumWidth = 6;
+            this.PrecioProductoVentas.Name = "PrecioProductoVentas";
+            this.PrecioProductoVentas.Width = 125;
+            // 
+            // lblTotalVenta
+            // 
+            this.lblTotalVenta.AutoSize = true;
+            this.lblTotalVenta.Location = new System.Drawing.Point(597, 324);
+            this.lblTotalVenta.Name = "lblTotalVenta";
+            this.lblTotalVenta.Size = new System.Drawing.Size(112, 16);
+            this.lblTotalVenta.TabIndex = 13;
+            this.lblTotalVenta.Text = "Total de la Venta:";
+            // 
+            // txtTotalVenta
+            // 
+            this.txtTotalVenta.Location = new System.Drawing.Point(600, 353);
+            this.txtTotalVenta.Name = "txtTotalVenta";
+            this.txtTotalVenta.Size = new System.Drawing.Size(109, 22);
+            this.txtTotalVenta.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -517,6 +718,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
@@ -524,6 +727,7 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.tabControlInventario.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -572,6 +776,25 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblID;
         private System.Windows.Forms.TabControl tabControlInventario;
+        private System.Windows.Forms.ComboBox cbClientesVentas;
+        private System.Windows.Forms.Label lblClienteVenta;
+        private System.Windows.Forms.Label lblProductosVentas;
+        private System.Windows.Forms.ComboBox cbProductosVentas;
+        private System.Windows.Forms.Button btnRegistrarVenta;
+        private System.Windows.Forms.Label lblCantidadVentas;
+        private System.Windows.Forms.TextBox txtCantidadVenta;
+        private System.Windows.Forms.DataGridView dgvVentas;
+        private System.Windows.Forms.Button btnEliminarVenta;
+        private System.Windows.Forms.Label lblIDVenta;
+        private System.Windows.Forms.TextBox txtIDVenta;
+        private System.Windows.Forms.Button btnMostarVentas;
+        private System.Windows.Forms.Button btnAgregarProductoVenta;
+        private System.Windows.Forms.Label lblTotalVenta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDVentas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClienteVentas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductosVentas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioProductoVentas;
+        private System.Windows.Forms.TextBox txtTotalVenta;
     }
 }
 

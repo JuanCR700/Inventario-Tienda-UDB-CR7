@@ -496,5 +496,20 @@ namespace Inventario_Machote
         {
             ActualizarListaClientes();
         }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
