@@ -34,17 +34,39 @@ namespace Inventario_Machote
             ConfigurarDataGridViewVentas();
         }
 
+        // Métodos para configurar columnas
+        private void ConfigurarColumnasAgregarProductos()
+        {
+            dgvVentas.Columns.Clear();
+            dgvVentas.Columns.Add("IDProducto", "ID Producto");
+            dgvVentas.Columns.Add("NombreProducto", "Nombre del Producto");
+            dgvVentas.Columns.Add("Cantidad", "Cantidad");
+            dgvVentas.Columns.Add("Precio", "Precio");
+        }
+
+        private void ConfigurarColumnasMostrarVentas()
+        {
+            dgvVentas.Columns.Clear();
+            dgvVentas.Columns.Add("IDVenta", "ID Venta");
+            dgvVentas.Columns.Add("Cliente", "Cliente");
+            dgvVentas.Columns.Add("IDProducto", "ID Producto");
+            dgvVentas.Columns.Add("NombreProducto", "Nombre del Producto");
+            dgvVentas.Columns.Add("Cantidad", "Cantidad");
+            dgvVentas.Columns.Add("PrecioUnitario", "Precio Unitario");
+            dgvVentas.Columns.Add("Total", "Total");
+        }
+
         // Métodos buscar clientes
-        private Cliente BuscarCliente(string entrada)
+        private Cliente BuscarCliente(string idCliente)
         {
             // Buscar por ID
-            if (int.TryParse(entrada, out int idCliente))
+            if (int.TryParse(idCliente, out int id))
             {
-                return listaClientes.Find(c => c.ID == idCliente);
+                return listaClientes.Find(c => c.ID == id);
             }
 
             // Buscar por nombre
-            return listaClientes.Find(c => c.Nombre.Equals(entrada, StringComparison.OrdinalIgnoreCase));
+            return listaClientes.Find(c => c.Nombre.Equals(idCliente, StringComparison.OrdinalIgnoreCase));
         }
 
         // Métodos buscar clientes y productos
@@ -85,9 +107,7 @@ namespace Inventario_Machote
         private void ConfigurarDataGridViewVentas()
         {
             dgvVentas.Columns.Clear();
-            dgvVentas.Columns.Add("ID", "ID VENTA");
-            dgvVentas.Columns.Add("ClienteID", "ID Cliente");
-            dgvVentas.Columns.Add("Cliente", "Cliente");
+            dgvVentas.Columns.Add("ProductoID", "ID Producto");
             dgvVentas.Columns.Add("Producto", "Producto");
             dgvVentas.Columns.Add("CantidadProductos", "Cantidad");
             dgvVentas.Columns.Add("Precio", "Precio");
@@ -589,15 +609,17 @@ namespace Inventario_Machote
 
         private void btnAgregarProductoVenta_Click(object sender, EventArgs e)
         {
+            ConfigurarColumnasAgregarProductos();
+
             // Validar que se haya ingresado un producto
-            if (string.IsNullOrEmpty(txtProductoVenta.Text))
+            if (string.IsNullOrEmpty(txtIDProductoVenta.Text))
             {
-                MessageBox.Show("Por favor, ingresa el ID o nombre del producto.");
+                MessageBox.Show("Por favor, ingresa el ID del producto.");
                 return;
             }
 
             // Buscar el producto
-            Producto productoSeleccionado = BuscarProducto(txtProductoVenta.Text);
+            Producto productoSeleccionado = BuscarProducto(txtIDProductoVenta.Text);
             if (productoSeleccionado == null)
             {
                 MessageBox.Show("Producto no encontrado.");
@@ -624,9 +646,11 @@ namespace Inventario_Machote
                 totalVenta += productoSeleccionado.Precio * cantidad;
                 txtTotalVenta.Text = $"{totalVenta:F2}";
 
-                // Limpiar el campo de producto y cantidad
-                txtProductoVenta.Text = string.Empty;
+                // Limpiar el campo de producto venta, cantidad venta, nombre de producto venta y nombre cliente venta
+                txtIDProductoVenta.Text = string.Empty;
                 txtCantidadVenta.Text = string.Empty;
+                txtNombreProductoVentas.Text = string.Empty;
+                txtNombreClienteVenta.Text = string.Empty;
             }
             else
             {
@@ -638,17 +662,24 @@ namespace Inventario_Machote
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
             // Validar que se haya ingresado un cliente
-            if (string.IsNullOrEmpty(txtClienteVenta.Text))
+            if (string.IsNullOrEmpty(txtIDClienteVenta.Text))
             {
-                MessageBox.Show("Por favor, ingresa el ID o nombre del cliente.");
+                MessageBox.Show("Por favor ingresa el ID del Cliente");
                 return;
             }
 
             // Buscar el cliente
-            Cliente clienteSeleccionado = BuscarCliente(txtClienteVenta.Text);
+            Cliente clienteSeleccionado = listaCliente(txtIDClienteVenta.Text);
             if (clienteSeleccionado == null)
             {
                 MessageBox.Show("Cliente no encontrado.");
+                return;
+            }
+
+            // Validar que hay productos en la venta
+            if (dgvVentas.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay productos en la venta.");
                 return;
             }
 
@@ -662,13 +693,25 @@ namespace Inventario_Machote
             // Crear una nueva venta
             Venta nuevaVenta = new Venta
             {
-                ID = nuevoIDVenta,
+                ID = ventas.Count + 1,
                 Cliente = clienteSeleccionado,
-                Total = totalVenta
+                Total = totalVenta,
+                ProductosVendidos = new Dictionary<int, int>()
             };
+
+            // Recorrer las filas del DataGridView para agregar los productos vendidos
+            foreach (DataGridViewRow fila in dgvVentas.Rows)
+            {
+                int idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+                int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                nuevaVenta.ProductosVendidos.Add(idProducto, cantidad); // Agregar producto vendido
+            }
 
             // Agregar la nueva venta al diccionario
             ventas[nuevaVenta.ID] = nuevaVenta;
+
+            // Mostrar mensaje de éxito
+            MessageBox.Show("Venta registrada correctamente.");
 
             // Mostar ID de la venta en el TextBox
             txtIDVenta.Text = nuevaVenta.ID.ToString();
@@ -682,9 +725,17 @@ namespace Inventario_Machote
             txtTotalVenta.Text = $"{totalVenta:F2}";
 
             // Limpiar los campos
-            txtClienteVenta.Text = string.Empty;
-            txtProductoVenta.Text = string.Empty;
+            dgvVentas.Rows.Clear();
+            txtIDClienteVenta.Text = string.Empty;
+            txtNombreClienteVenta.Text = string.Empty;
+            txtIDProductoVenta.Text = string.Empty;
+            txtNombreProductoVentas.Text = string.Empty;
             txtCantidadVenta.Text = string.Empty;
+            txtTotalVenta.Text = "0.00";
+
+            // Reiniciar el total de la venta
+            totalVenta = 0.0;
+            txtTotalVenta.Text = $"{totalVenta:F2}";
 
             MessageBox.Show("Venta registrada correctamente.");
         }
@@ -703,7 +754,47 @@ namespace Inventario_Machote
 
         private void btnMostarVentas_Click(object sender, EventArgs e)
         {
+            ConfigurarColumnasMostrarVentas();
 
+            // Limpiar el DataGridView antes de mostrar las ventas
+            dgvVentas.Rows.Clear();
+
+            // Verificar si hay ventas registradas
+            if (ventas.Count == 0)
+            {
+                MessageBox.Show("No hay ventas registradas.");
+                return;
+            }
+
+            // Recorrer todas las ventas registradas
+            foreach (var venta in ventas.Values)
+            {
+                // Obtener el cliente de la venta
+                Cliente cliente = venta.Cliente;
+
+                // Recorrer los productos vendidos en la venta
+                foreach (var productoVendido in venta.ProductosVendidos)
+                {
+                    int idProducto = productoVendido.Key; // ID del producto
+                    int cantidad = productoVendido.Value; // Cantidad vendida
+
+                    // Buscar el producto en el inventario
+                    Producto producto = inventario.Find(p => p.ID == idProducto);
+                    if (producto != null)
+                    {
+                        // Agregar una fila al DataGridView con los detalles de la venta
+                        dgvVentas.Rows.Add(
+                            venta.ID,               // ID de la venta
+                            cliente.Nombre,         // Nombre del cliente
+                            producto.ID,            // ID del producto
+                            producto.Nombre,        // Nombre del producto
+                            cantidad,               // Cantidad vendida
+                            producto.Precio,        // Precio unitario
+                            cantidad * producto.Precio // Total
+                        );
+                    }
+                }
+            }
         }
 
         private void lblIDVenta_Click(object sender, EventArgs e)
@@ -718,24 +809,45 @@ namespace Inventario_Machote
 
         private void btnEliminarVenta_Click(object sender, EventArgs e)
         {
+            // Verificar si hay una fila seleccionada en el DataGridView
             if (dgvVentas.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Por favor, selecciona una venta para eliminar.");
                 return;
             }
 
-            int idVenta = Convert.ToInt32(dgvVentas.SelectedRows[0].Cells[0].Value);
+            // Obtener el ID de la venta seleccionada
+            int idVenta = Convert.ToInt32(dgvVentas.SelectedRows[0].Cells["IDVenta"].Value);
+
+            // Buscar la venta en el diccionario
             if (ventas.TryGetValue(idVenta, out Venta ventaAEliminar))
             {
                 // Devolver los productos al stock
-                foreach (var producto in ventaAEliminar.ProductosVendidos)
+                foreach (var productoVendido in ventaAEliminar.ProductosVendidos)
                 {
-                    Producto productoEnInventario = inventario.Find(p => p.ID == producto.Key);
+                    int idProducto = productoVendido.Key; // ID del producto
+                    int cantidad = productoVendido.Value; // Cantidad vendida
+
+                    // Buscar el producto en el inventario
+                    Producto productoEnInventario = inventario.Find(p => p.ID == idProducto);
                     if (productoEnInventario != null)
                     {
-                        productoEnInventario.CantidadStock += producto.Value; // Devolver la cantidad al stock
+                        productoEnInventario.CantidadStock += cantidad; // Devolver la cantidad al stock
                     }
                 }
+
+                // Eliminar la venta del diccionario
+                ventas.Remove(idVenta);
+
+                // Mostrar mensaje de éxito
+                MessageBox.Show($"Venta con ID {idVenta} eliminada correctamente.");
+
+                // Actualizar el DataGridView
+                ActualizarListaVentas();
+            }
+            else
+            {
+                MessageBox.Show("Venta no encontrada.");
             }
         }
 
@@ -761,6 +873,86 @@ namespace Inventario_Machote
             public Cliente Cliente { get; set; }
             public Dictionary<int, int> ProductosVendidos { get; set; } = new Dictionary<int, int>(); // ID del producto y cantidad
             public double Total { get; set; }
+        }
+
+        private void txtNombreClienteVenta_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtIDProductoVenta_TextChanged(object sender, EventArgs e)
+        {
+            // Buscar el cliente por ID o nombre
+            Cliente clienteSeleccionado = listaCliente(txtIDClienteVenta.Text);
+            if (clienteSeleccionado != null)
+            {
+                txtNombreClienteVenta.Text = clienteSeleccionado.Nombre; // Asignar el nombre del cliente
+            }
+            else
+            {
+                txtNombreClienteVenta.Text = string.Empty; // Limpiar el nombre si no se encuentra
+            }
+        }
+
+        private void txtIDClienteVenta_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBuscarClienteVenta_Click(object sender, EventArgs e)
+        {
+            // Obtener el código del cliente ingresado
+            string codigoCliente = txtIDClienteVenta.Text;
+
+            // Buscar el cliente por ID
+            Cliente clienteSeleccionado = listaCliente(codigoCliente);
+            if (clienteSeleccionado != null)
+            {
+                // Si se encuentra, mostrar el nombre en txtNombreClienteVenta
+                txtNombreClienteVenta.Text = clienteSeleccionado.Nombre;
+            }
+            else
+            {
+                // Si no se encuentra, limpiar el campo de nombre
+                txtNombreClienteVenta.Text = string.Empty;
+                MessageBox.Show("Cliente no encontrado.");
+            }
+        }
+
+        // Método para buscar cliente (ejemplo)
+        private Cliente listaCliente(string idCliente)
+        {
+            // Suponiendo que tienes una lista o diccionario de clientes
+            return listaClientes.FirstOrDefault(c => c.ID.ToString() == idCliente || c.Nombre.Equals(idCliente, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private void btnBuscarProductoVentas_Click(object sender, EventArgs e)
+        {
+            // Obtener el ID del producto ingresado
+            string idProducto = txtIDProductoVenta.Text.Trim();
+
+            // Validar que el campo no esté vacío
+            if (string.IsNullOrEmpty(idProducto))
+            {
+                MessageBox.Show("Por favor, ingresa el ID del producto.");
+                return;
+            }
+
+            // Buscar el producto por ID
+            Producto productoEncontrado = BuscarProducto(idProducto);
+
+            // Verificar si se encontró el producto
+            if (productoEncontrado != null)
+            {
+                // Mostrar el nombre del producto en txtNombreProductoVentas
+                txtNombreProductoVentas.Text = productoEncontrado.Nombre;
+            }
+            else
+            {
+                // Limpiar el campo si no se encuentra el producto
+                txtNombreProductoVentas.Text = string.Empty;
+                MessageBox.Show("Producto no encontrado.");
+            }
         }
     }
 }
