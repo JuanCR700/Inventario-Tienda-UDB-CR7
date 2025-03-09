@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using static Inventario_Machote.Form1;
 
 
@@ -32,6 +33,73 @@ namespace Inventario_Machote
             ConfigurarDataGridView();
             ConfigurarDataGridViewClientes();
             ConfigurarDataGridViewVentas();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ConfigurarGraficoVentasPorCategoria(chartVentasPorCategoria);
+            ConfigurarGraficoProductosMasVendidos(chartProductosMasVendidos);
+        }
+
+        // Métodos para configurar gráficos
+        private void ConfigurarGraficosEstadisticas()
+        {
+            ConfigurarGraficoVentasPorCategoria(chartVentasPorCategoria);
+            ConfigurarGraficoProductosMasVendidos(chartProductosMasVendidos);
+        }
+
+        private void ConfigurarGraficoVentasPorCategoria(Chart chart)
+        {
+            chart.Series.Clear();
+            chart.Titles.Clear();
+            chart.Titles.Add("Ventas por Categoría");
+
+            var ventasPorCategoria = ventas.Values
+        .SelectMany(v => v.ProductosVendidos)
+        .Where(p => inventario.Any(prod => prod.ID == p.Key)) // Filtrar productos no encontrados
+        .GroupBy(p => inventario.Find(prod => prod.ID == p.Key).Categoria)
+        .Select(g => new { Categoria = g.Key, Total = g.Sum(p => p.Value * inventario.Find(prod => prod.ID == p.Key).Precio) })
+        .ToList();
+
+            var series = new Series("Ventas")
+            {
+                ChartType = SeriesChartType.Column
+            };
+
+            foreach (var item in ventasPorCategoria)
+            {
+                series.Points.AddXY(item.Categoria, item.Total);
+            }
+
+            chart.Series.Add(series);
+        }
+
+        private void ConfigurarGraficoProductosMasVendidos(Chart chart)
+        {
+            chart.Series.Clear();
+            chart.Titles.Clear();
+            chart.Titles.Add("Productos Más Vendidos");
+
+            var productosMasVendidos = ventas.Values
+        .SelectMany(v => v.ProductosVendidos)
+        .Where(p => inventario.Any(prod => prod.ID == p.Key)) // Filtrar productos no encontrados
+        .GroupBy(p => p.Key)
+        .Select(g => new { Producto = inventario.Find(prod => prod.ID == g.Key).Nombre, Cantidad = g.Sum(p => p.Value) })
+        .OrderByDescending(p => p.Cantidad)
+        .Take(5) // Mostrar solo los 5 productos más vendidos
+        .ToList();
+
+            var series = new Series("Productos")
+            {
+                ChartType = SeriesChartType.Pie
+            };
+
+            foreach (var item in productosMasVendidos)
+            {
+                series.Points.AddXY(item.Producto, item.Cantidad);
+            }
+
+            chart.Series.Add(series);
         }
 
         // Métodos para configurar columnas
@@ -112,6 +180,8 @@ namespace Inventario_Machote
             dgvVentas.Columns.Add("CantidadProductos", "Cantidad");
             dgvVentas.Columns.Add("Precio", "Precio");
         }
+
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -316,13 +386,7 @@ namespace Inventario_Machote
         }
 
         //Codigo pestana Clientes
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-           
-        }
-
-
+        //
         private void lblNombreCliente_Click(object sender, EventArgs e)
         {
 
@@ -661,6 +725,7 @@ namespace Inventario_Machote
 
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
+
             // Validar que se haya ingresado un cliente
             if (string.IsNullOrEmpty(txtIDClienteVenta.Text))
             {
@@ -734,10 +799,12 @@ namespace Inventario_Machote
             txtTotalVenta.Text = "0.00";
 
             // Reiniciar el total de la venta
-            totalVenta = 0.0;
+ 
             txtTotalVenta.Text = $"{totalVenta:F2}";
 
             MessageBox.Show("Venta registrada correctamente.");
+
+            ConfigurarGraficosEstadisticas(); // Actualizar gráficos
         }
 
         // Actualizar la lista de ventas
@@ -844,11 +911,14 @@ namespace Inventario_Machote
 
                 // Actualizar el DataGridView
                 ActualizarListaVentas();
+                ActualizarListaProductos();
             }
             else
             {
                 MessageBox.Show("Venta no encontrada.");
             }
+
+            ConfigurarGraficosEstadisticas(); // Actualizar gráficos
         }
 
         private void dgvVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -953,6 +1023,11 @@ namespace Inventario_Machote
                 txtNombreProductoVentas.Text = string.Empty;
                 MessageBox.Show("Producto no encontrado.");
             }
+        }
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

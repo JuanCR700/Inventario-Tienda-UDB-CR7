@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.txtIDProductoVenta = new System.Windows.Forms.TextBox();
@@ -95,6 +101,9 @@
             this.btnBuscarProductoVentas = new System.Windows.Forms.Button();
             this.lblNombreProductoVentas = new System.Windows.Forms.Label();
             this.txtNombreProductoVentas = new System.Windows.Forms.TextBox();
+            this.chartVentasPorCategoria = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartProductosMasVendidos = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -102,10 +111,14 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.tabControlInventario.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartVentasPorCategoria)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartProductosMasVendidos)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.chartProductosMasVendidos);
+            this.tabPage4.Controls.Add(this.chartVentasPorCategoria);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -113,6 +126,7 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Estadisticas";
             this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
             // tabPage3
             // 
@@ -786,6 +800,38 @@
             this.txtNombreProductoVentas.Size = new System.Drawing.Size(100, 22);
             this.txtNombreProductoVentas.TabIndex = 24;
             // 
+            // chartVentasPorCategoria
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chartVentasPorCategoria.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartVentasPorCategoria.Legends.Add(legend2);
+            this.chartVentasPorCategoria.Location = new System.Drawing.Point(171, 32);
+            this.chartVentasPorCategoria.Name = "chartVentasPorCategoria";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartVentasPorCategoria.Series.Add(series2);
+            this.chartVentasPorCategoria.Size = new System.Drawing.Size(400, 197);
+            this.chartVentasPorCategoria.TabIndex = 0;
+            this.chartVentasPorCategoria.Text = "Ventas por Categoria";
+            // 
+            // chartProductosMasVendidos
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartProductosMasVendidos.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartProductosMasVendidos.Legends.Add(legend1);
+            this.chartProductosMasVendidos.Location = new System.Drawing.Point(171, 284);
+            this.chartProductosMasVendidos.Name = "chartProductosMasVendidos";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartProductosMasVendidos.Series.Add(series1);
+            this.chartProductosMasVendidos.Size = new System.Drawing.Size(400, 197);
+            this.chartProductosMasVendidos.TabIndex = 1;
+            this.chartProductosMasVendidos.Text = "chart2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -795,6 +841,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.tabPage4.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).EndInit();
@@ -805,6 +852,8 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.tabControlInventario.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartVentasPorCategoria)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartProductosMasVendidos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -878,6 +927,8 @@
         private System.Windows.Forms.Button btnBuscarProductoVentas;
         private System.Windows.Forms.TextBox txtNombreProductoVentas;
         private System.Windows.Forms.Label lblNombreProductoVentas;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartVentasPorCategoria;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartProductosMasVendidos;
     }
 }
 
