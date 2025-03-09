@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Inventario_Machote.Form1;
 
 
 
@@ -21,17 +22,47 @@ namespace Inventario_Machote
 
         private List<Producto> inventario = new List<Producto>();
         private List<Cliente> listaClientes = new List<Cliente>();
+        private Dictionary<int, Venta> ventas = new Dictionary<int, Venta>(); // Diccionario para las ventas
+        private double totalVenta = 0.0; // Campo para almacenar el total de la venta
+        private int ultimoIDVenta = 0; // Contador para el ID de venta
 
         public Form1()
         {
             InitializeComponent();
             ConfigurarDataGridView();
             ConfigurarDataGridViewClientes();
+            ConfigurarDataGridViewVentas();
+        }
+
+        // Métodos buscar clientes
+        private Cliente BuscarCliente(string entrada)
+        {
+            // Buscar por ID
+            if (int.TryParse(entrada, out int idCliente))
+            {
+                return listaClientes.Find(c => c.ID == idCliente);
+            }
+
+            // Buscar por nombre
+            return listaClientes.Find(c => c.Nombre.Equals(entrada, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // Métodos buscar clientes y productos
+        private Producto BuscarProducto(string entrada)
+        {
+            // Buscar por ID
+            if (int.TryParse(entrada, out int idProducto))
+            {
+                return inventario.Find(p => p.ID == idProducto);
+            }
+
+            // Buscar por nombre
+            return inventario.Find(p => p.Nombre.Equals(entrada, StringComparison.OrdinalIgnoreCase));
         }
 
         private void ConfigurarDataGridView()
         {
-            // Configurar las columnas del DataGridView
+            // DataGridView Productos
             dgvProductos.Columns.Clear();
             dgvProductos.Columns.Add("ID", "ID");
             dgvProductos.Columns.Add("Nombre", "Nombre");
@@ -40,6 +71,7 @@ namespace Inventario_Machote
             dgvProductos.Columns.Add("CantidadStock", "Cantidad en Stock");
         }
 
+        // DataGridView Clientes
         private void ConfigurarDataGridViewClientes()
         {
             dgvClientes.Columns.Clear();
@@ -47,6 +79,18 @@ namespace Inventario_Machote
             dgvClientes.Columns.Add("Nombre", "Nombre");
             dgvClientes.Columns.Add("Direccion", "Dirección");
             dgvClientes.Columns.Add("Telefono", "Teléfono");
+        }
+
+        // DataGridView ventas
+        private void ConfigurarDataGridViewVentas()
+        {
+            dgvVentas.Columns.Clear();
+            dgvVentas.Columns.Add("ID", "ID VENTA");
+            dgvVentas.Columns.Add("ClienteID", "ID Cliente");
+            dgvVentas.Columns.Add("Cliente", "Cliente");
+            dgvVentas.Columns.Add("Producto", "Producto");
+            dgvVentas.Columns.Add("CantidadProductos", "Cantidad");
+            dgvVentas.Columns.Add("Precio", "Precio");
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -243,14 +287,21 @@ namespace Inventario_Machote
             public string Categoria { get; set; }
             public double Precio { get; set; }
             public int CantidadStock { get; set; }
+
+            public override string ToString()
+            {
+                return $"{ID} - {Nombre}"; // Formato que muestra ID y Nombre
+            }
+
         }
 
         //Codigo pestana Clientes
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+           
         }
+
 
         private void lblNombreCliente_Click(object sender, EventArgs e)
         {
@@ -490,12 +541,21 @@ namespace Inventario_Machote
             public string Nombre { get; set; }
             public string Direccion { get; set; }
             public string Telefono { get; set; }
+
+            public override string ToString()
+            {
+                return $"{ID} - {Nombre}"; // Formato que muestra ID y Nombre
+            }
+
         }
 
         private void btnMostrarClientes_Click(object sender, EventArgs e)
         {
             ActualizarListaClientes();
         }
+        
+
+        //Codigo pestana ventas
 
         private void tabPage2_Click(object sender, EventArgs e)
         {
@@ -512,17 +572,7 @@ namespace Inventario_Machote
 
         }
 
-        private void cbClientesVentas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void lblProductosVentas_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbProductosVentas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -539,12 +589,116 @@ namespace Inventario_Machote
 
         private void btnAgregarProductoVenta_Click(object sender, EventArgs e)
         {
+            // Validar que se haya ingresado un producto
+            if (string.IsNullOrEmpty(txtProductoVenta.Text))
+            {
+                MessageBox.Show("Por favor, ingresa el ID o nombre del producto.");
+                return;
+            }
+
+            // Buscar el producto
+            Producto productoSeleccionado = BuscarProducto(txtProductoVenta.Text);
+            if (productoSeleccionado == null)
+            {
+                MessageBox.Show("Producto no encontrado.");
+                return;
+            }
+
+            // Validar que la cantidad ingresada sea un número válido
+            if (!int.TryParse(txtCantidadVenta.Text, out int cantidad) || cantidad <= 0)
+            {
+                MessageBox.Show("Por favor, ingresa una cantidad válida.");
+                return;
+            }
+
+            // Verificar si hay suficiente stock
+            if (productoSeleccionado.CantidadStock >= cantidad)
+            {
+                // Agregar el producto al DataGridView de ventas
+                dgvVentas.Rows.Add(productoSeleccionado.ID, productoSeleccionado.Nombre, cantidad, productoSeleccionado.Precio, cantidad * productoSeleccionado.Precio);
+
+                // Actualizar el stock del producto
+                productoSeleccionado.CantidadStock -= cantidad;
+
+                // Actualizar el total de la venta
+                totalVenta += productoSeleccionado.Precio * cantidad;
+                txtTotalVenta.Text = $"{totalVenta:F2}";
+
+                // Limpiar el campo de producto y cantidad
+                txtProductoVenta.Text = string.Empty;
+                txtCantidadVenta.Text = string.Empty;
+            }
+            else
+            {
+                MessageBox.Show("Stock insuficiente.");
+            }
 
         }
 
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
+            // Validar que se haya ingresado un cliente
+            if (string.IsNullOrEmpty(txtClienteVenta.Text))
+            {
+                MessageBox.Show("Por favor, ingresa el ID o nombre del cliente.");
+                return;
+            }
 
+            // Buscar el cliente
+            Cliente clienteSeleccionado = BuscarCliente(txtClienteVenta.Text);
+            if (clienteSeleccionado == null)
+            {
+                MessageBox.Show("Cliente no encontrado.");
+                return;
+            }
+
+            // Generar un nuevo ID de venta
+            int nuevoIDVenta = ventas.Count + 1;
+            while (ventas.ContainsKey(nuevoIDVenta))
+            {
+                nuevoIDVenta++;
+            }
+
+            // Crear una nueva venta
+            Venta nuevaVenta = new Venta
+            {
+                ID = nuevoIDVenta,
+                Cliente = clienteSeleccionado,
+                Total = totalVenta
+            };
+
+            // Agregar la nueva venta al diccionario
+            ventas[nuevaVenta.ID] = nuevaVenta;
+
+            // Mostar ID de la venta en el TextBox
+            txtIDVenta.Text = nuevaVenta.ID.ToString();
+
+            // Actualizar la interfaz
+            ActualizarListaVentas();
+            ActualizarListaProductos();
+
+            // Reiniciar el total de la venta
+            totalVenta = 0.0;
+            txtTotalVenta.Text = $"{totalVenta:F2}";
+
+            // Limpiar los campos
+            txtClienteVenta.Text = string.Empty;
+            txtProductoVenta.Text = string.Empty;
+            txtCantidadVenta.Text = string.Empty;
+
+            MessageBox.Show("Venta registrada correctamente.");
+        }
+
+        // Actualizar la lista de ventas
+        private void ActualizarListaVentas()
+        {
+            dgvVentas.Rows.Clear(); // Limpiar el DataGridView antes de mostrar los datos
+            foreach (var venta in ventas.Values)
+            {
+                string productos = string.Join(", ", venta.ProductosVendidos.Select(p => $"ID: {p.Key}, Cantidad: {p.Value}"));
+                dgvVentas.Rows.Add(venta.ID, venta.Cliente.ID, venta.Cliente.Nombre, productos, venta.Total); // Mostrar el total
+            }
+        
         }
 
         private void btnMostarVentas_Click(object sender, EventArgs e)
@@ -564,7 +718,25 @@ namespace Inventario_Machote
 
         private void btnEliminarVenta_Click(object sender, EventArgs e)
         {
+            if (dgvVentas.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, selecciona una venta para eliminar.");
+                return;
+            }
 
+            int idVenta = Convert.ToInt32(dgvVentas.SelectedRows[0].Cells[0].Value);
+            if (ventas.TryGetValue(idVenta, out Venta ventaAEliminar))
+            {
+                // Devolver los productos al stock
+                foreach (var producto in ventaAEliminar.ProductosVendidos)
+                {
+                    Producto productoEnInventario = inventario.Find(p => p.ID == producto.Key);
+                    if (productoEnInventario != null)
+                    {
+                        productoEnInventario.CantidadStock += producto.Value; // Devolver la cantidad al stock
+                    }
+                }
+            }
         }
 
         private void dgvVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -580,6 +752,15 @@ namespace Inventario_Machote
         private void txtTotalVenta_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        // Clase Venta
+        public class Venta
+        {
+            public int ID { get; set; }
+            public Cliente Cliente { get; set; }
+            public Dictionary<int, int> ProductosVendidos { get; set; } = new Dictionary<int, int>(); // ID del producto y cantidad
+            public double Total { get; set; }
         }
     }
 }
