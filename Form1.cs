@@ -15,13 +15,18 @@ namespace Inventario_Machote
 
 
     public partial class Form1 : Form
-    {
+
+
+    {   //Variables Globales
+
         private List<Producto> inventario = new List<Producto>();
+        private List<Cliente> listaClientes = new List<Cliente>();
 
         public Form1()
         {
             InitializeComponent();
             ConfigurarDataGridView();
+            ConfigurarDataGridViewClientes();
         }
 
         private void ConfigurarDataGridView()
@@ -33,6 +38,15 @@ namespace Inventario_Machote
             dgvProductos.Columns.Add("Categoria", "Categoría");
             dgvProductos.Columns.Add("Precio", "Precio");
             dgvProductos.Columns.Add("CantidadStock", "Cantidad en Stock");
+        }
+
+        private void ConfigurarDataGridViewClientes()
+        {
+            dgvClientes.Columns.Clear();
+            dgvClientes.Columns.Add("ID", "ID");
+            dgvClientes.Columns.Add("Nombre", "Nombre");
+            dgvClientes.Columns.Add("Direccion", "Dirección");
+            dgvClientes.Columns.Add("Telefono", "Teléfono");
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -315,12 +329,172 @@ namespace Inventario_Machote
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
+            if (!ValidarCliente(out Cliente nuevoCliente))
+            {
+                return; // La validación falló, se muestra el mensaje correspondiente
+            }
 
+            // Agregarlo a la lista
+            listaClientes.Add(nuevoCliente);
+            MessageBox.Show("Cliente registrado correctamente.");
+            ActualizarListaClientes();
+            LimpiarCamposClientes();
+        }
+
+        // Validar cliente
+        private bool ValidarCliente(out Cliente cliente)
+        {
+            cliente = null;
+
+            // Validar que el ID sea un número válido y único
+            if (string.IsNullOrEmpty(txtIDCliente.Text) || !int.TryParse(txtIDCliente.Text, out int idCliente) || idCliente <= 0)
+            {
+                MessageBox.Show("Por favor, ingresa un ID de cliente válido (mayor a 0).");
+                return false;
+            }
+
+            if (listaClientes.Any(c => c.ID == idCliente))
+            {
+                MessageBox.Show("El ID ingresado ya existe. Por favor, utiliza otro ID.");
+                return false;
+            }
+
+            // Validar que el nombre no esté vacío
+            if (string.IsNullOrEmpty(txtNombreCliente.Text))
+            {
+                MessageBox.Show("Por favor, ingresa el nombre del cliente.");
+                return false;
+            }
+
+            // Validar que la dirección no esté vacía
+            if (string.IsNullOrEmpty(txtDireccionCliente.Text))
+            {
+                MessageBox.Show("Por favor, ingresa la dirección del cliente.");
+                return false;
+            }
+
+            // Validar que el teléfono sea válido
+            if (!EsTelefonoValido(txtTelefonoCliente.Text))
+            {
+                MessageBox.Show("Por favor, ingresa un número de teléfono válido (mínimo 8 dígitos).");
+                return false;
+            }
+
+            // Crear el nuevo cliente
+            cliente = new Cliente
+            {
+                ID = idCliente,
+                Nombre = txtNombreCliente.Text.Trim(),
+                Direccion = txtDireccionCliente.Text.Trim(),
+                Telefono = txtTelefonoCliente.Text.Trim()
+            };
+
+            return true;
+        }
+
+        // Validar formato de teléfono
+        private bool EsTelefonoValido(string telefono)
+        {
+            return !string.IsNullOrEmpty(telefono) && telefono.Length >= 8 && long.TryParse(telefono, out _);
+        }
+
+        // Limpiar campos de entrada de clientes
+        private void LimpiarCamposClientes()
+        {
+            txtIDCliente.Text = string.Empty;
+            txtNombreCliente.Text = string.Empty;
+            txtDireccionCliente.Text = string.Empty;
+            txtTelefonoCliente.Text = string.Empty;
+        }
+
+        // Actualizar el DataGridView con los clientes actuales
+        private void ActualizarListaClientes()
+        {
+            dgvClientes.Rows.Clear();
+            foreach (var cliente in listaClientes)
+            {
+                dgvClientes.Rows.Add(cliente.ID, cliente.Nombre, cliente.Direccion, cliente.Telefono);
+            }
         }
 
         private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnEliminarCliente_Click(object sender, EventArgs e)
+        {
+            if (dgvClientes.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, selecciona un cliente para eliminar.");
+                return;
+            }
+
+            int idCliente = Convert.ToInt32(dgvClientes.SelectedRows[0].Cells[0].Value);
+            Cliente clienteAEliminar = listaClientes.Find(c => c.ID == idCliente);
+
+            if (clienteAEliminar != null)
+            {
+                listaClientes.Remove(clienteAEliminar);
+                MessageBox.Show($"Cliente con ID {idCliente} eliminado correctamente.");
+            }
+            else
+            {
+                MessageBox.Show("Cliente no encontrado.");
+            }
+
+            ActualizarListaClientes();
+        }
+
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            dgvClientes.Rows.Clear();
+
+            if (string.IsNullOrEmpty(txtIDCliente.Text) && string.IsNullOrEmpty(txtNombreCliente.Text))
+            {
+                MessageBox.Show("Por favor, completa al menos el campo ID o Nombre para buscar un cliente.");
+                return;
+            }
+
+            string idBusqueda = txtIDCliente.Text.Trim();
+            string nombreBusqueda = txtNombreCliente.Text.Trim().ToLowerInvariant();
+
+            List<Cliente> clientesEncontrados = new List<Cliente>();
+
+            if (!string.IsNullOrEmpty(idBusqueda) && int.TryParse(idBusqueda, out int id))
+            {
+                clientesEncontrados = listaClientes.Where(c => c.ID == id).ToList();
+            }
+            else if (!string.IsNullOrEmpty(nombreBusqueda))
+            {
+                clientesEncontrados = listaClientes.Where(c => c.Nombre.ToLowerInvariant().Contains(nombreBusqueda)).ToList();
+            }
+
+            if (clientesEncontrados.Any())
+            {
+                foreach (var cliente in clientesEncontrados)
+                {
+                    dgvClientes.Rows.Add(cliente.ID, cliente.Nombre, cliente.Direccion, cliente.Telefono);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron clientes con los criterios ingresados.");
+            }
+        }
+
+        // Clase Cliente
+        public class Cliente
+        {
+            public int ID { get; set; }
+            public string Nombre { get; set; }
+            public string Direccion { get; set; }
+            public string Telefono { get; set; }
+        }
+
+        private void btnMostrarClientes_Click(object sender, EventArgs e)
+        {
+            ActualizarListaClientes();
         }
     }
 }
