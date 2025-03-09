@@ -231,6 +231,8 @@ namespace Inventario_Machote
             public int CantidadStock { get; set; }
         }
 
+        //Codigo pestana Clientes
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -246,22 +248,77 @@ namespace Inventario_Machote
 
         }
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void IDCliente_Click(object sender, EventArgs e)
         {
 
         }
 
         private void txtIDCliente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtIDProducto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNombreProducto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCategoria_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbCategoriaProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPrecio_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPrecioProducto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblStock_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNombreCliente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDireccionCliente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTelefono_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTelefonoCliente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAgregarCliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

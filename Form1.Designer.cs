@@ -30,6 +30,7 @@
         {
             this.tabControlInventario = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnBuscarProducto = new System.Windows.Forms.Button();
             this.btnEliminarProducto = new System.Windows.Forms.Button();
             this.btnAgregarProducto = new System.Windows.Forms.Button();
             this.btnMostrarStock = new System.Windows.Forms.Button();
@@ -50,9 +51,20 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblID = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnAgregarCliente = new System.Windows.Forms.Button();
+            this.btnBuscarCliente = new System.Windows.Forms.Button();
+            this.btnEliminarCliente = new System.Windows.Forms.Button();
+            this.btnMostrarClientes = new System.Windows.Forms.Button();
+            this.txtTelefonoCliente = new System.Windows.Forms.TextBox();
+            this.txtDireccionCliente = new System.Windows.Forms.TextBox();
+            this.txtNombreCliente = new System.Windows.Forms.TextBox();
+            this.txtIDCliente = new System.Windows.Forms.TextBox();
+            this.lblTelefono = new System.Windows.Forms.Label();
+            this.lblDireccion = new System.Windows.Forms.Label();
+            this.lblNombreCliente = new System.Windows.Forms.Label();
+            this.IDCliente = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.btnBuscarProducto = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -74,30 +86,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnBuscarCliente = new System.Windows.Forms.Button();
-            this.btnEliminarCliente = new System.Windows.Forms.Button();
-            this.btnAgregarCliente = new System.Windows.Forms.Button();
-            this.btnMostrarClientes = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.txtTelefonoCliente = new System.Windows.Forms.TextBox();
-            this.txtDireccionCliente = new System.Windows.Forms.TextBox();
-            this.txtNombreCliente = new System.Windows.Forms.TextBox();
-            this.lblTelefono = new System.Windows.Forms.Label();
-            this.lblDireccion = new System.Windows.Forms.Label();
-            this.lblNombreCliente = new System.Windows.Forms.Label();
-            this.IDCliente = new System.Windows.Forms.Label();
-            this.txtIDCliente = new System.Windows.Forms.TextBox();
+            this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlInventario.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlInventario
@@ -139,11 +139,21 @@
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
+            // btnBuscarProducto
+            // 
+            this.btnBuscarProducto.Location = new System.Drawing.Point(527, 180);
+            this.btnBuscarProducto.Name = "btnBuscarProducto";
+            this.btnBuscarProducto.Size = new System.Drawing.Size(135, 35);
+            this.btnBuscarProducto.TabIndex = 12;
+            this.btnBuscarProducto.Text = "Buscar Producto";
+            this.btnBuscarProducto.UseVisualStyleBackColor = true;
+            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
+            // 
             // btnEliminarProducto
             // 
             this.btnEliminarProducto.Location = new System.Drawing.Point(527, 78);
             this.btnEliminarProducto.Name = "btnEliminarProducto";
-            this.btnEliminarProducto.Size = new System.Drawing.Size(135, 37);
+            this.btnEliminarProducto.Size = new System.Drawing.Size(135, 40);
             this.btnEliminarProducto.TabIndex = 11;
             this.btnEliminarProducto.Text = "Eliminar Producto";
             this.btnEliminarProducto.UseVisualStyleBackColor = true;
@@ -153,7 +163,7 @@
             // 
             this.btnAgregarProducto.Location = new System.Drawing.Point(527, 26);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
-            this.btnAgregarProducto.Size = new System.Drawing.Size(135, 34);
+            this.btnAgregarProducto.Size = new System.Drawing.Size(135, 37);
             this.btnAgregarProducto.TabIndex = 1;
             this.btnAgregarProducto.Text = "Agregar Producto";
             this.btnAgregarProducto.UseVisualStyleBackColor = true;
@@ -163,7 +173,7 @@
             // 
             this.btnMostrarStock.Location = new System.Drawing.Point(527, 132);
             this.btnMostrarStock.Name = "btnMostrarStock";
-            this.btnMostrarStock.Size = new System.Drawing.Size(135, 30);
+            this.btnMostrarStock.Size = new System.Drawing.Size(135, 33);
             this.btnMostrarStock.TabIndex = 2;
             this.btnMostrarStock.Text = "Mostrar Stock";
             this.btnMostrarStock.UseVisualStyleBackColor = true;
@@ -235,6 +245,7 @@
             this.cbCategoriaProducto.Name = "cbCategoriaProducto";
             this.cbCategoriaProducto.Size = new System.Drawing.Size(173, 24);
             this.cbCategoriaProducto.TabIndex = 10;
+            this.cbCategoriaProducto.SelectedIndexChanged += new System.EventHandler(this.cbCategoriaProducto_SelectedIndexChanged);
             // 
             // txtStockProducto
             // 
@@ -249,6 +260,7 @@
             this.txtPrecioProducto.Name = "txtPrecioProducto";
             this.txtPrecioProducto.Size = new System.Drawing.Size(173, 22);
             this.txtPrecioProducto.TabIndex = 8;
+            this.txtPrecioProducto.TextChanged += new System.EventHandler(this.txtPrecioProducto_TextChanged);
             // 
             // txtNombreProducto
             // 
@@ -256,6 +268,7 @@
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(252, 22);
             this.txtNombreProducto.TabIndex = 6;
+            this.txtNombreProducto.TextChanged += new System.EventHandler(this.txtNombreProducto_TextChanged);
             // 
             // txtIDProducto
             // 
@@ -264,6 +277,7 @@
             this.txtIDProducto.Name = "txtIDProducto";
             this.txtIDProducto.Size = new System.Drawing.Size(173, 22);
             this.txtIDProducto.TabIndex = 5;
+            this.txtIDProducto.TextChanged += new System.EventHandler(this.txtIDProducto_TextChanged);
             // 
             // lblStock
             // 
@@ -273,6 +287,7 @@
             this.lblStock.Size = new System.Drawing.Size(41, 16);
             this.lblStock.TabIndex = 4;
             this.lblStock.Text = "Stock";
+            this.lblStock.Click += new System.EventHandler(this.lblStock_Click);
             // 
             // lblPrecio
             // 
@@ -282,6 +297,7 @@
             this.lblPrecio.Size = new System.Drawing.Size(46, 16);
             this.lblPrecio.TabIndex = 3;
             this.lblPrecio.Text = "Precio";
+            this.lblPrecio.Click += new System.EventHandler(this.lblPrecio_Click);
             // 
             // lblCategoria
             // 
@@ -291,6 +307,7 @@
             this.lblCategoria.Size = new System.Drawing.Size(66, 16);
             this.lblCategoria.TabIndex = 2;
             this.lblCategoria.Text = "Categoria";
+            this.lblCategoria.Click += new System.EventHandler(this.lblCategoria_Click);
             // 
             // lblNombre
             // 
@@ -314,11 +331,11 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.dgvClientes);
+            this.tabPage2.Controls.Add(this.btnAgregarCliente);
             this.tabPage2.Controls.Add(this.btnBuscarCliente);
             this.tabPage2.Controls.Add(this.btnEliminarCliente);
-            this.tabPage2.Controls.Add(this.btnAgregarCliente);
             this.tabPage2.Controls.Add(this.btnMostrarClientes);
-            this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Controls.Add(this.txtTelefonoCliente);
             this.tabPage2.Controls.Add(this.txtDireccionCliente);
             this.tabPage2.Controls.Add(this.txtNombreCliente);
@@ -334,6 +351,117 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Clientes";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnAgregarCliente
+            // 
+            this.btnAgregarCliente.Location = new System.Drawing.Point(527, 19);
+            this.btnAgregarCliente.Name = "btnAgregarCliente";
+            this.btnAgregarCliente.Size = new System.Drawing.Size(135, 37);
+            this.btnAgregarCliente.TabIndex = 28;
+            this.btnAgregarCliente.Text = "Agregar Cliente";
+            this.btnAgregarCliente.UseVisualStyleBackColor = true;
+            this.btnAgregarCliente.Click += new System.EventHandler(this.btnAgregarCliente_Click);
+            // 
+            // btnBuscarCliente
+            // 
+            this.btnBuscarCliente.Location = new System.Drawing.Point(527, 179);
+            this.btnBuscarCliente.Name = "btnBuscarCliente";
+            this.btnBuscarCliente.Size = new System.Drawing.Size(135, 32);
+            this.btnBuscarCliente.TabIndex = 27;
+            this.btnBuscarCliente.Text = "Buscar Cliente";
+            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            // 
+            // btnEliminarCliente
+            // 
+            this.btnEliminarCliente.Location = new System.Drawing.Point(527, 77);
+            this.btnEliminarCliente.Name = "btnEliminarCliente";
+            this.btnEliminarCliente.Size = new System.Drawing.Size(135, 37);
+            this.btnEliminarCliente.TabIndex = 26;
+            this.btnEliminarCliente.Text = "Eliminar Cliente";
+            this.btnEliminarCliente.UseVisualStyleBackColor = true;
+            // 
+            // btnMostrarClientes
+            // 
+            this.btnMostrarClientes.Location = new System.Drawing.Point(527, 131);
+            this.btnMostrarClientes.Name = "btnMostrarClientes";
+            this.btnMostrarClientes.Size = new System.Drawing.Size(135, 30);
+            this.btnMostrarClientes.TabIndex = 16;
+            this.btnMostrarClientes.Text = "Mostrar Clientes";
+            this.btnMostrarClientes.UseMnemonic = false;
+            this.btnMostrarClientes.UseVisualStyleBackColor = true;
+            // 
+            // txtTelefonoCliente
+            // 
+            this.txtTelefonoCliente.Location = new System.Drawing.Point(168, 195);
+            this.txtTelefonoCliente.Name = "txtTelefonoCliente";
+            this.txtTelefonoCliente.Size = new System.Drawing.Size(173, 22);
+            this.txtTelefonoCliente.TabIndex = 24;
+            this.txtTelefonoCliente.TextChanged += new System.EventHandler(this.txtTelefonoCliente_TextChanged);
+            // 
+            // txtDireccionCliente
+            // 
+            this.txtDireccionCliente.Location = new System.Drawing.Point(168, 131);
+            this.txtDireccionCliente.Name = "txtDireccionCliente";
+            this.txtDireccionCliente.Size = new System.Drawing.Size(173, 22);
+            this.txtDireccionCliente.TabIndex = 23;
+            this.txtDireccionCliente.TextChanged += new System.EventHandler(this.txtDireccionCliente_TextChanged);
+            // 
+            // txtNombreCliente
+            // 
+            this.txtNombreCliente.Location = new System.Drawing.Point(168, 81);
+            this.txtNombreCliente.Name = "txtNombreCliente";
+            this.txtNombreCliente.Size = new System.Drawing.Size(252, 22);
+            this.txtNombreCliente.TabIndex = 22;
+            this.txtNombreCliente.TextChanged += new System.EventHandler(this.txtNombreCliente_TextChanged);
+            // 
+            // txtIDCliente
+            // 
+            this.txtIDCliente.AcceptsReturn = true;
+            this.txtIDCliente.Location = new System.Drawing.Point(168, 19);
+            this.txtIDCliente.Name = "txtIDCliente";
+            this.txtIDCliente.Size = new System.Drawing.Size(173, 22);
+            this.txtIDCliente.TabIndex = 21;
+            this.txtIDCliente.TextChanged += new System.EventHandler(this.txtIDCliente_TextChanged);
+            // 
+            // lblTelefono
+            // 
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.Location = new System.Drawing.Point(62, 195);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(61, 16);
+            this.lblTelefono.TabIndex = 20;
+            this.lblTelefono.Text = "Telefono";
+            this.lblTelefono.Click += new System.EventHandler(this.lblTelefono_Click);
+            // 
+            // lblDireccion
+            // 
+            this.lblDireccion.AutoSize = true;
+            this.lblDireccion.Location = new System.Drawing.Point(62, 142);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(64, 16);
+            this.lblDireccion.TabIndex = 19;
+            this.lblDireccion.Text = "Direccion";
+            this.lblDireccion.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // lblNombreCliente
+            // 
+            this.lblNombreCliente.AutoSize = true;
+            this.lblNombreCliente.Location = new System.Drawing.Point(62, 87);
+            this.lblNombreCliente.Name = "lblNombreCliente";
+            this.lblNombreCliente.Size = new System.Drawing.Size(100, 16);
+            this.lblNombreCliente.TabIndex = 15;
+            this.lblNombreCliente.Text = "Nombre Cliente";
+            this.lblNombreCliente.Click += new System.EventHandler(this.lblNombreCliente_Click);
+            // 
+            // IDCliente
+            // 
+            this.IDCliente.AutoSize = true;
+            this.IDCliente.Location = new System.Drawing.Point(62, 25);
+            this.IDCliente.Name = "IDCliente";
+            this.IDCliente.Size = new System.Drawing.Size(64, 16);
+            this.IDCliente.TabIndex = 13;
+            this.IDCliente.Text = "ID Cliente";
+            this.IDCliente.Click += new System.EventHandler(this.IDCliente_Click);
             // 
             // tabPage3
             // 
@@ -354,16 +482,6 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Estadisticas";
             this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // btnBuscarProducto
-            // 
-            this.btnBuscarProducto.Location = new System.Drawing.Point(527, 180);
-            this.btnBuscarProducto.Name = "btnBuscarProducto";
-            this.btnBuscarProducto.Size = new System.Drawing.Size(135, 32);
-            this.btnBuscarProducto.TabIndex = 12;
-            this.btnBuscarProducto.Text = "Buscar Producto";
-            this.btnBuscarProducto.UseVisualStyleBackColor = true;
-            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
             // 
             // tabPage5
             // 
@@ -566,133 +684,26 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "ID";
             // 
-            // btnBuscarCliente
+            // dgvClientes
             // 
-            this.btnBuscarCliente.Location = new System.Drawing.Point(527, 179);
-            this.btnBuscarCliente.Name = "btnBuscarCliente";
-            this.btnBuscarCliente.Size = new System.Drawing.Size(135, 32);
-            this.btnBuscarCliente.TabIndex = 27;
-            this.btnBuscarCliente.Text = "Buscar Cliente";
-            this.btnBuscarCliente.UseVisualStyleBackColor = true;
-            // 
-            // btnEliminarCliente
-            // 
-            this.btnEliminarCliente.Location = new System.Drawing.Point(527, 77);
-            this.btnEliminarCliente.Name = "btnEliminarCliente";
-            this.btnEliminarCliente.Size = new System.Drawing.Size(135, 37);
-            this.btnEliminarCliente.TabIndex = 26;
-            this.btnEliminarCliente.Text = "Eliminar Cliente";
-            this.btnEliminarCliente.UseVisualStyleBackColor = true;
-            // 
-            // btnAgregarCliente
-            // 
-            this.btnAgregarCliente.Location = new System.Drawing.Point(527, 25);
-            this.btnAgregarCliente.Name = "btnAgregarCliente";
-            this.btnAgregarCliente.Size = new System.Drawing.Size(135, 34);
-            this.btnAgregarCliente.TabIndex = 14;
-            this.btnAgregarCliente.Text = "Agregar Cliente";
-            this.btnAgregarCliente.UseVisualStyleBackColor = true;
-            this.btnAgregarCliente.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // btnMostrarClientes
-            // 
-            this.btnMostrarClientes.Location = new System.Drawing.Point(527, 131);
-            this.btnMostrarClientes.Name = "btnMostrarClientes";
-            this.btnMostrarClientes.Size = new System.Drawing.Size(135, 30);
-            this.btnMostrarClientes.TabIndex = 16;
-            this.btnMostrarClientes.Text = "Mostrar Clientes";
-            this.btnMostrarClientes.UseMnemonic = false;
-            this.btnMostrarClientes.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn10});
-            this.dataGridView2.Location = new System.Drawing.Point(6, 256);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(731, 171);
-            this.dataGridView2.TabIndex = 18;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            // 
-            // txtTelefonoCliente
-            // 
-            this.txtTelefonoCliente.Location = new System.Drawing.Point(168, 195);
-            this.txtTelefonoCliente.Name = "txtTelefonoCliente";
-            this.txtTelefonoCliente.Size = new System.Drawing.Size(173, 22);
-            this.txtTelefonoCliente.TabIndex = 24;
-            // 
-            // txtDireccionCliente
-            // 
-            this.txtDireccionCliente.Location = new System.Drawing.Point(168, 131);
-            this.txtDireccionCliente.Name = "txtDireccionCliente";
-            this.txtDireccionCliente.Size = new System.Drawing.Size(173, 22);
-            this.txtDireccionCliente.TabIndex = 23;
-            // 
-            // txtNombreCliente
-            // 
-            this.txtNombreCliente.Location = new System.Drawing.Point(168, 81);
-            this.txtNombreCliente.Name = "txtNombreCliente";
-            this.txtNombreCliente.Size = new System.Drawing.Size(252, 22);
-            this.txtNombreCliente.TabIndex = 22;
-            // 
-            // lblTelefono
-            // 
-            this.lblTelefono.AutoSize = true;
-            this.lblTelefono.Location = new System.Drawing.Point(62, 195);
-            this.lblTelefono.Name = "lblTelefono";
-            this.lblTelefono.Size = new System.Drawing.Size(61, 16);
-            this.lblTelefono.TabIndex = 20;
-            this.lblTelefono.Text = "Telefono";
-            // 
-            // lblDireccion
-            // 
-            this.lblDireccion.AutoSize = true;
-            this.lblDireccion.Location = new System.Drawing.Point(62, 142);
-            this.lblDireccion.Name = "lblDireccion";
-            this.lblDireccion.Size = new System.Drawing.Size(64, 16);
-            this.lblDireccion.TabIndex = 19;
-            this.lblDireccion.Text = "Direccion";
-            this.lblDireccion.Click += new System.EventHandler(this.label7_Click);
-            // 
-            // lblNombreCliente
-            // 
-            this.lblNombreCliente.AutoSize = true;
-            this.lblNombreCliente.Location = new System.Drawing.Point(62, 87);
-            this.lblNombreCliente.Name = "lblNombreCliente";
-            this.lblNombreCliente.Size = new System.Drawing.Size(100, 16);
-            this.lblNombreCliente.TabIndex = 15;
-            this.lblNombreCliente.Text = "Nombre Cliente";
-            this.lblNombreCliente.Click += new System.EventHandler(this.lblNombreCliente_Click);
-            // 
-            // IDCliente
-            // 
-            this.IDCliente.AutoSize = true;
-            this.IDCliente.Location = new System.Drawing.Point(62, 25);
-            this.IDCliente.Name = "IDCliente";
-            this.IDCliente.Size = new System.Drawing.Size(64, 16);
-            this.IDCliente.TabIndex = 13;
-            this.IDCliente.Text = "ID Cliente";
-            this.IDCliente.Click += new System.EventHandler(this.IDCliente_Click);
-            // 
-            // txtIDCliente
-            // 
-            this.txtIDCliente.AcceptsReturn = true;
-            this.txtIDCliente.Location = new System.Drawing.Point(168, 19);
-            this.txtIDCliente.Name = "txtIDCliente";
-            this.txtIDCliente.Size = new System.Drawing.Size(173, 22);
-            this.txtIDCliente.TabIndex = 21;
-            this.txtIDCliente.TextChanged += new System.EventHandler(this.txtIDCliente_TextChanged);
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9});
+            this.dgvClientes.Location = new System.Drawing.Point(0, 257);
+            this.dgvClientes.Name = "dgvClientes";
+            this.dgvClientes.RowHeadersWidth = 51;
+            this.dgvClientes.RowTemplate.Height = 24;
+            this.dgvClientes.Size = new System.Drawing.Size(731, 171);
+            this.dgvClientes.TabIndex = 29;
+            this.dgvClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellContentClick);
             // 
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.FillWeight = 50F;
-            this.dataGridViewTextBoxColumn6.HeaderText = "ID Cliente";
+            this.dataGridViewTextBoxColumn6.HeaderText = "ID Clientes";
             this.dataGridViewTextBoxColumn6.MaxInputLength = 25000;
             this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
@@ -700,24 +711,24 @@
             // 
             // dataGridViewTextBoxColumn7
             // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Nombre Cliente";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Nombre Clientes";
             this.dataGridViewTextBoxColumn7.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.Width = 125;
             // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Direccion";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.Width = 125;
+            // 
             // dataGridViewTextBoxColumn9
             // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Direccion";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Telefono";
             this.dataGridViewTextBoxColumn9.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Telefono";
-            this.dataGridViewTextBoxColumn10.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.Width = 125;
             // 
             // Form1
             // 
@@ -737,7 +748,7 @@
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -792,9 +803,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnBuscarCliente;
         private System.Windows.Forms.Button btnEliminarCliente;
-        private System.Windows.Forms.Button btnAgregarCliente;
         private System.Windows.Forms.Button btnMostrarClientes;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TextBox txtTelefonoCliente;
         private System.Windows.Forms.TextBox txtDireccionCliente;
         private System.Windows.Forms.TextBox txtNombreCliente;
@@ -803,10 +812,12 @@
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.Label lblNombreCliente;
         private System.Windows.Forms.Label IDCliente;
+        private System.Windows.Forms.Button btnAgregarCliente;
+        private System.Windows.Forms.DataGridView dgvClientes;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
     }
 }
 
