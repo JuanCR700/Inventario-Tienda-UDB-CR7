@@ -28,14 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chartProductosMasVendidos = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartVentasPorCategoria = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtNombreProductoVentas = new System.Windows.Forms.TextBox();
+            this.lblNombreProductoVentas = new System.Windows.Forms.Label();
+            this.btnBuscarProductoVentas = new System.Windows.Forms.Button();
+            this.btnBuscarClienteVenta = new System.Windows.Forms.Button();
+            this.txtIDClienteVenta = new System.Windows.Forms.TextBox();
+            this.txtNombreClienteVenta = new System.Windows.Forms.TextBox();
+            this.lblNombreClienteVenta = new System.Windows.Forms.Label();
             this.txtIDProductoVenta = new System.Windows.Forms.TextBox();
             this.txtTotalVenta = new System.Windows.Forms.TextBox();
             this.lblTotalVenta = new System.Windows.Forms.Label();
@@ -45,6 +54,10 @@
             this.lblIDVenta = new System.Windows.Forms.Label();
             this.txtIDVenta = new System.Windows.Forms.TextBox();
             this.dgvVentas = new System.Windows.Forms.DataGridView();
+            this.ClienteID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductosVentas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioProductoVentas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnRegistrarVenta = new System.Windows.Forms.Button();
             this.lblCantidadVentas = new System.Windows.Forms.Label();
             this.txtCantidadVenta = new System.Windows.Forms.TextBox();
@@ -90,20 +103,13 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblID = new System.Windows.Forms.Label();
             this.tabControlInventario = new System.Windows.Forms.TabControl();
-            this.lblNombreClienteVenta = new System.Windows.Forms.Label();
-            this.txtNombreClienteVenta = new System.Windows.Forms.TextBox();
-            this.ClienteID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductosVentas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioProductoVentas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtIDClienteVenta = new System.Windows.Forms.TextBox();
-            this.btnBuscarClienteVenta = new System.Windows.Forms.Button();
-            this.btnBuscarProductoVentas = new System.Windows.Forms.Button();
-            this.lblNombreProductoVentas = new System.Windows.Forms.Label();
-            this.txtNombreProductoVentas = new System.Windows.Forms.TextBox();
-            this.chartVentasPorCategoria = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartProductosMasVendidos = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartProductosMasVendidos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartVentasPorCategoria)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -111,12 +117,11 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.tabControlInventario.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartVentasPorCategoria)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartProductosMasVendidos)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label4);
             this.tabPage4.Controls.Add(this.chartProductosMasVendidos);
             this.tabPage4.Controls.Add(this.chartVentasPorCategoria);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
@@ -128,8 +133,41 @@
             this.tabPage4.UseVisualStyleBackColor = true;
             this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
+            // chartProductosMasVendidos
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartProductosMasVendidos.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartProductosMasVendidos.Legends.Add(legend1);
+            this.chartProductosMasVendidos.Location = new System.Drawing.Point(186, 286);
+            this.chartProductosMasVendidos.Name = "chartProductosMasVendidos";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartProductosMasVendidos.Series.Add(series1);
+            this.chartProductosMasVendidos.Size = new System.Drawing.Size(400, 197);
+            this.chartProductosMasVendidos.TabIndex = 1;
+            this.chartProductosMasVendidos.Text = "chart2";
+            // 
+            // chartVentasPorCategoria
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chartVentasPorCategoria.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartVentasPorCategoria.Legends.Add(legend2);
+            this.chartVentasPorCategoria.Location = new System.Drawing.Point(186, 60);
+            this.chartVentasPorCategoria.Name = "chartVentasPorCategoria";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartVentasPorCategoria.Series.Add(series2);
+            this.chartVentasPorCategoria.Size = new System.Drawing.Size(400, 197);
+            this.chartVentasPorCategoria.TabIndex = 0;
+            this.chartVentasPorCategoria.Text = "Ventas por Categoria";
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.txtNombreProductoVentas);
             this.tabPage3.Controls.Add(this.lblNombreProductoVentas);
             this.tabPage3.Controls.Add(this.btnBuscarProductoVentas);
@@ -160,8 +198,73 @@
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
+            // txtNombreProductoVentas
+            // 
+            this.txtNombreProductoVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.txtNombreProductoVentas.Location = new System.Drawing.Point(151, 217);
+            this.txtNombreProductoVentas.Name = "txtNombreProductoVentas";
+            this.txtNombreProductoVentas.Size = new System.Drawing.Size(100, 22);
+            this.txtNombreProductoVentas.TabIndex = 24;
+            // 
+            // lblNombreProductoVentas
+            // 
+            this.lblNombreProductoVentas.AutoSize = true;
+            this.lblNombreProductoVentas.Location = new System.Drawing.Point(32, 220);
+            this.lblNombreProductoVentas.Name = "lblNombreProductoVentas";
+            this.lblNombreProductoVentas.Size = new System.Drawing.Size(113, 16);
+            this.lblNombreProductoVentas.TabIndex = 23;
+            this.lblNombreProductoVentas.Text = "Nombre Producto";
+            // 
+            // btnBuscarProductoVentas
+            // 
+            this.btnBuscarProductoVentas.Location = new System.Drawing.Point(249, 167);
+            this.btnBuscarProductoVentas.Name = "btnBuscarProductoVentas";
+            this.btnBuscarProductoVentas.Size = new System.Drawing.Size(65, 25);
+            this.btnBuscarProductoVentas.TabIndex = 22;
+            this.btnBuscarProductoVentas.Text = "Buscar";
+            this.btnBuscarProductoVentas.UseVisualStyleBackColor = true;
+            this.btnBuscarProductoVentas.Click += new System.EventHandler(this.btnBuscarProductoVentas_Click);
+            // 
+            // btnBuscarClienteVenta
+            // 
+            this.btnBuscarClienteVenta.Location = new System.Drawing.Point(249, 67);
+            this.btnBuscarClienteVenta.Name = "btnBuscarClienteVenta";
+            this.btnBuscarClienteVenta.Size = new System.Drawing.Size(65, 23);
+            this.btnBuscarClienteVenta.TabIndex = 21;
+            this.btnBuscarClienteVenta.Text = "Buscar";
+            this.btnBuscarClienteVenta.UseVisualStyleBackColor = true;
+            this.btnBuscarClienteVenta.Click += new System.EventHandler(this.btnBuscarClienteVenta_Click);
+            // 
+            // txtIDClienteVenta
+            // 
+            this.txtIDClienteVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.txtIDClienteVenta.Location = new System.Drawing.Point(135, 67);
+            this.txtIDClienteVenta.Name = "txtIDClienteVenta";
+            this.txtIDClienteVenta.Size = new System.Drawing.Size(103, 22);
+            this.txtIDClienteVenta.TabIndex = 20;
+            this.txtIDClienteVenta.TextChanged += new System.EventHandler(this.txtIDClienteVenta_TextChanged);
+            // 
+            // txtNombreClienteVenta
+            // 
+            this.txtNombreClienteVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.txtNombreClienteVenta.Location = new System.Drawing.Point(135, 122);
+            this.txtNombreClienteVenta.Name = "txtNombreClienteVenta";
+            this.txtNombreClienteVenta.Size = new System.Drawing.Size(179, 22);
+            this.txtNombreClienteVenta.TabIndex = 19;
+            this.txtNombreClienteVenta.TextChanged += new System.EventHandler(this.txtNombreClienteVenta_TextChanged);
+            // 
+            // lblNombreClienteVenta
+            // 
+            this.lblNombreClienteVenta.AutoSize = true;
+            this.lblNombreClienteVenta.Location = new System.Drawing.Point(29, 128);
+            this.lblNombreClienteVenta.Name = "lblNombreClienteVenta";
+            this.lblNombreClienteVenta.Size = new System.Drawing.Size(100, 16);
+            this.lblNombreClienteVenta.TabIndex = 18;
+            this.lblNombreClienteVenta.Text = "Nombre Cliente";
+            // 
             // txtIDProductoVenta
             // 
+            this.txtIDProductoVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtIDProductoVenta.Location = new System.Drawing.Point(135, 170);
             this.txtIDProductoVenta.Name = "txtIDProductoVenta";
             this.txtIDProductoVenta.Size = new System.Drawing.Size(103, 22);
@@ -170,6 +273,7 @@
             // 
             // txtTotalVenta
             // 
+            this.txtTotalVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtTotalVenta.Location = new System.Drawing.Point(596, 399);
             this.txtTotalVenta.Name = "txtTotalVenta";
             this.txtTotalVenta.Size = new System.Drawing.Size(109, 22);
@@ -228,6 +332,7 @@
             // 
             // txtIDVenta
             // 
+            this.txtIDVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtIDVenta.Location = new System.Drawing.Point(599, 176);
             this.txtIDVenta.Name = "txtIDVenta";
             this.txtIDVenta.ReadOnly = true;
@@ -251,6 +356,34 @@
             this.dgvVentas.TabIndex = 7;
             this.dgvVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVentas_CellContentClick);
             // 
+            // ClienteID
+            // 
+            this.ClienteID.HeaderText = "ID Producto";
+            this.ClienteID.MinimumWidth = 6;
+            this.ClienteID.Name = "ClienteID";
+            this.ClienteID.Width = 125;
+            // 
+            // ProductosVentas
+            // 
+            this.ProductosVentas.HeaderText = "Producto";
+            this.ProductosVentas.MinimumWidth = 6;
+            this.ProductosVentas.Name = "ProductosVentas";
+            this.ProductosVentas.Width = 125;
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.MinimumWidth = 6;
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.Width = 125;
+            // 
+            // PrecioProductoVentas
+            // 
+            this.PrecioProductoVentas.HeaderText = "Precio";
+            this.PrecioProductoVentas.MinimumWidth = 6;
+            this.PrecioProductoVentas.Name = "PrecioProductoVentas";
+            this.PrecioProductoVentas.Width = 125;
+            // 
             // btnRegistrarVenta
             // 
             this.btnRegistrarVenta.Location = new System.Drawing.Point(527, 57);
@@ -273,6 +406,7 @@
             // 
             // txtCantidadVenta
             // 
+            this.txtCantidadVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtCantidadVenta.Location = new System.Drawing.Point(138, 269);
             this.txtCantidadVenta.Name = "txtCantidadVenta";
             this.txtCantidadVenta.Size = new System.Drawing.Size(100, 22);
@@ -301,6 +435,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.dgvClientes);
             this.tabPage2.Controls.Add(this.btnAgregarCliente);
             this.tabPage2.Controls.Add(this.btnBuscarCliente);
@@ -412,6 +547,7 @@
             // 
             // txtTelefonoCliente
             // 
+            this.txtTelefonoCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtTelefonoCliente.Location = new System.Drawing.Point(173, 255);
             this.txtTelefonoCliente.Name = "txtTelefonoCliente";
             this.txtTelefonoCliente.Size = new System.Drawing.Size(173, 22);
@@ -420,6 +556,7 @@
             // 
             // txtDireccionCliente
             // 
+            this.txtDireccionCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtDireccionCliente.Location = new System.Drawing.Point(173, 191);
             this.txtDireccionCliente.Name = "txtDireccionCliente";
             this.txtDireccionCliente.Size = new System.Drawing.Size(173, 22);
@@ -428,6 +565,7 @@
             // 
             // txtNombreCliente
             // 
+            this.txtNombreCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtNombreCliente.Location = new System.Drawing.Point(173, 141);
             this.txtNombreCliente.Name = "txtNombreCliente";
             this.txtNombreCliente.Size = new System.Drawing.Size(252, 22);
@@ -437,6 +575,7 @@
             // txtIDCliente
             // 
             this.txtIDCliente.AcceptsReturn = true;
+            this.txtIDCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtIDCliente.Location = new System.Drawing.Point(173, 79);
             this.txtIDCliente.Name = "txtIDCliente";
             this.txtIDCliente.Size = new System.Drawing.Size(173, 22);
@@ -485,6 +624,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.btnBuscarProducto);
             this.tabPage1.Controls.Add(this.btnEliminarProducto);
             this.tabPage1.Controls.Add(this.btnAgregarProducto);
@@ -605,6 +745,7 @@
             // 
             // cbCategoriaProducto
             // 
+            this.cbCategoriaProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.cbCategoriaProducto.FormattingEnabled = true;
             this.cbCategoriaProducto.Items.AddRange(new object[] {
             "1",
@@ -619,6 +760,7 @@
             // 
             // txtStockProducto
             // 
+            this.txtStockProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtStockProducto.Location = new System.Drawing.Point(146, 273);
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(173, 22);
@@ -626,6 +768,7 @@
             // 
             // txtPrecioProducto
             // 
+            this.txtPrecioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtPrecioProducto.Location = new System.Drawing.Point(146, 221);
             this.txtPrecioProducto.Name = "txtPrecioProducto";
             this.txtPrecioProducto.Size = new System.Drawing.Size(173, 22);
@@ -634,6 +777,7 @@
             // 
             // txtNombreProducto
             // 
+            this.txtNombreProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtNombreProducto.Location = new System.Drawing.Point(146, 121);
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(252, 22);
@@ -643,6 +787,7 @@
             // txtIDProducto
             // 
             this.txtIDProducto.AcceptsReturn = true;
+            this.txtIDProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.txtIDProducto.Location = new System.Drawing.Point(146, 79);
             this.txtIDProducto.Name = "txtIDProducto";
             this.txtIDProducto.Size = new System.Drawing.Size(173, 22);
@@ -711,126 +856,47 @@
             this.tabControlInventario.Size = new System.Drawing.Size(751, 516);
             this.tabControlInventario.TabIndex = 0;
             // 
-            // lblNombreClienteVenta
+            // label1
             // 
-            this.lblNombreClienteVenta.AutoSize = true;
-            this.lblNombreClienteVenta.Location = new System.Drawing.Point(29, 128);
-            this.lblNombreClienteVenta.Name = "lblNombreClienteVenta";
-            this.lblNombreClienteVenta.Size = new System.Drawing.Size(100, 16);
-            this.lblNombreClienteVenta.TabIndex = 18;
-            this.lblNombreClienteVenta.Text = "Nombre Cliente";
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(245, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(215, 36);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "PRODUCTOS";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtNombreClienteVenta
+            // label2
             // 
-            this.txtNombreClienteVenta.Location = new System.Drawing.Point(135, 122);
-            this.txtNombreClienteVenta.Name = "txtNombreClienteVenta";
-            this.txtNombreClienteVenta.Size = new System.Drawing.Size(179, 22);
-            this.txtNombreClienteVenta.TabIndex = 19;
-            this.txtNombreClienteVenta.TextChanged += new System.EventHandler(this.txtNombreClienteVenta_TextChanged);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(276, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(169, 37);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "CLIENTES";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ClienteID
+            // label3
             // 
-            this.ClienteID.HeaderText = "ID Producto";
-            this.ClienteID.MinimumWidth = 6;
-            this.ClienteID.Name = "ClienteID";
-            this.ClienteID.Width = 125;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(273, 19);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(133, 32);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "VENTAS";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ProductosVentas
+            // label4
             // 
-            this.ProductosVentas.HeaderText = "Producto";
-            this.ProductosVentas.MinimumWidth = 6;
-            this.ProductosVentas.Name = "ProductosVentas";
-            this.ProductosVentas.Width = 125;
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.MinimumWidth = 6;
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.Width = 125;
-            // 
-            // PrecioProductoVentas
-            // 
-            this.PrecioProductoVentas.HeaderText = "Precio";
-            this.PrecioProductoVentas.MinimumWidth = 6;
-            this.PrecioProductoVentas.Name = "PrecioProductoVentas";
-            this.PrecioProductoVentas.Width = 125;
-            // 
-            // txtIDClienteVenta
-            // 
-            this.txtIDClienteVenta.Location = new System.Drawing.Point(135, 67);
-            this.txtIDClienteVenta.Name = "txtIDClienteVenta";
-            this.txtIDClienteVenta.Size = new System.Drawing.Size(103, 22);
-            this.txtIDClienteVenta.TabIndex = 20;
-            this.txtIDClienteVenta.TextChanged += new System.EventHandler(this.txtIDClienteVenta_TextChanged);
-            // 
-            // btnBuscarClienteVenta
-            // 
-            this.btnBuscarClienteVenta.Location = new System.Drawing.Point(249, 67);
-            this.btnBuscarClienteVenta.Name = "btnBuscarClienteVenta";
-            this.btnBuscarClienteVenta.Size = new System.Drawing.Size(65, 23);
-            this.btnBuscarClienteVenta.TabIndex = 21;
-            this.btnBuscarClienteVenta.Text = "Buscar";
-            this.btnBuscarClienteVenta.UseVisualStyleBackColor = true;
-            this.btnBuscarClienteVenta.Click += new System.EventHandler(this.btnBuscarClienteVenta_Click);
-            // 
-            // btnBuscarProductoVentas
-            // 
-            this.btnBuscarProductoVentas.Location = new System.Drawing.Point(249, 167);
-            this.btnBuscarProductoVentas.Name = "btnBuscarProductoVentas";
-            this.btnBuscarProductoVentas.Size = new System.Drawing.Size(65, 25);
-            this.btnBuscarProductoVentas.TabIndex = 22;
-            this.btnBuscarProductoVentas.Text = "Buscar";
-            this.btnBuscarProductoVentas.UseVisualStyleBackColor = true;
-            this.btnBuscarProductoVentas.Click += new System.EventHandler(this.btnBuscarProductoVentas_Click);
-            // 
-            // lblNombreProductoVentas
-            // 
-            this.lblNombreProductoVentas.AutoSize = true;
-            this.lblNombreProductoVentas.Location = new System.Drawing.Point(32, 220);
-            this.lblNombreProductoVentas.Name = "lblNombreProductoVentas";
-            this.lblNombreProductoVentas.Size = new System.Drawing.Size(113, 16);
-            this.lblNombreProductoVentas.TabIndex = 23;
-            this.lblNombreProductoVentas.Text = "Nombre Producto";
-            // 
-            // txtNombreProductoVentas
-            // 
-            this.txtNombreProductoVentas.Location = new System.Drawing.Point(151, 217);
-            this.txtNombreProductoVentas.Name = "txtNombreProductoVentas";
-            this.txtNombreProductoVentas.Size = new System.Drawing.Size(100, 22);
-            this.txtNombreProductoVentas.TabIndex = 24;
-            // 
-            // chartVentasPorCategoria
-            // 
-            chartArea2.Name = "ChartArea1";
-            this.chartVentasPorCategoria.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartVentasPorCategoria.Legends.Add(legend2);
-            this.chartVentasPorCategoria.Location = new System.Drawing.Point(171, 32);
-            this.chartVentasPorCategoria.Name = "chartVentasPorCategoria";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartVentasPorCategoria.Series.Add(series2);
-            this.chartVentasPorCategoria.Size = new System.Drawing.Size(400, 197);
-            this.chartVentasPorCategoria.TabIndex = 0;
-            this.chartVentasPorCategoria.Text = "Ventas por Categoria";
-            // 
-            // chartProductosMasVendidos
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chartProductosMasVendidos.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartProductosMasVendidos.Legends.Add(legend1);
-            this.chartProductosMasVendidos.Location = new System.Drawing.Point(171, 284);
-            this.chartProductosMasVendidos.Name = "chartProductosMasVendidos";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartProductosMasVendidos.Series.Add(series1);
-            this.chartProductosMasVendidos.Size = new System.Drawing.Size(400, 197);
-            this.chartProductosMasVendidos.TabIndex = 1;
-            this.chartProductosMasVendidos.Text = "chart2";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(232, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(228, 32);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "ESTADISTICAS";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -842,6 +908,9 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartProductosMasVendidos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartVentasPorCategoria)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).EndInit();
@@ -852,8 +921,6 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.tabControlInventario.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chartVentasPorCategoria)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartProductosMasVendidos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -929,6 +996,10 @@
         private System.Windows.Forms.Label lblNombreProductoVentas;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartVentasPorCategoria;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartProductosMasVendidos;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 
